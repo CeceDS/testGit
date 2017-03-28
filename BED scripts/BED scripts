@@ -14,8 +14,12 @@ bedtools coverage -a AC994.bed -b MM_CaPanel.bed -hist >AccuAct_MMCoverageHist.c
 You can also do it in vi: % vi filename
 Inside vi [in ESC mode] type:
 :%s/^M/\r/g
-
 To enter ^M, type CTRL-V, then CTRL-M. That is, hold down the CTRL key then press V and M in succession.
+
+":%s/^M//g"   替换所有的^M
+":%s/^M$//g"   替换行尾的^M
+":%s/^M/[ctrl-v]+[enter]/g"  将^M替换成回车
+":%s/^M/\r/g"   将^M替换成回车
 
 Save data as "mutation1.txt"
 
@@ -31,3 +35,13 @@ bedtools intersect -a mutation.bed -b AC994.bed -wo >MM_AC994_intersectBP.csv
 bedtools coverage -a mutation1222.bed -b mutation1227.bed > check.csv
 bedtools coverage -a METexon14.bed -b AC994.bed >METexon14.csv
 bedtools coverage -a METexons.bed -b AC994.bed >METexonsCoverdbyACC994.csv
+
+
+awk '{SUM += $3-$2} END {print SUM}' CRC.bed
+awk '{SUM += $3-$2} END {print SUM}' AC994.bed
+cat All_BrCa.txt | tr ';' '\n' > BRCA.txt
+cat BRCA.txt | tr '_' '\t' > BRCA2.txt
+
+
+bedtools intersect -a AC994.bed -b UCSC_exons_modif_canonical.bed -wb >annotateAC994.bed
+bedtools intersect -a AC994.bed -b UCSC_exons_modif_canonical.bed -wa >annoAC994.bed
