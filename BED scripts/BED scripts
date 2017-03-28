@@ -1,0 +1,33 @@
+cd /Users/Jane/Nutstore/LungCPanel
+Save data as "mutation1.txt"
+dos2unix mutation1.txt
+cat mutation1.txt | tr ';' '\n' > mutation2.txt
+cat mutation2.txt | tr '_' '\t' > mutation3.txt
+mutation.bed are made by subtract 1 from the "Start"
+
+bedtools coverage -a AC994.bed -b MM_CaPanel.bed >AccuAct_MMCoverage.csv
+bedtools coverage -a MM_CaPanel.bed -b AC994.bed >MM_AccuAct.csv
+bedtools coverage -a MM_CaPanel.bed -b AC994.bed -hist >MM_AccuActhist.csv
+bedtools coverage -a AC994.bed -b MM_CaPanel.bed -hist >AccuAct_MMCoverageHist.csv
+
+
+You can also do it in vi: % vi filename
+Inside vi [in ESC mode] type:
+:%s/^M/\r/g
+
+To enter ^M, type CTRL-V, then CTRL-M. That is, hold down the CTRL key then press V and M in succession.
+
+Save data as "mutation1.txt"
+
+bedtools coverage -a AC994.bed -b mutation.bed >AC994_MMCoverage.csv
+bedtools coverage -a mutation.bed -b AC994.bed >MM_AC994.csv
+bedtools coverage -a mutation.bed -b AC994.bed -hist >MM_AC994hist.csv
+bedtools coverage -a AC994.bed -b mutation.bed -hist >AC994_MMCoverageHist.csv
+
+bedtools intersect -a mutation.bed -b AC994.bed -wa -wb >MM_AC994_intersect.csv
+bedtools intersect -a mutation.bed -b AC994.bed -wo >MM_AC994_intersectBP.csv
+
+
+bedtools coverage -a mutation1222.bed -b mutation1227.bed > check.csv
+bedtools coverage -a METexon14.bed -b AC994.bed >METexon14.csv
+bedtools coverage -a METexons.bed -b AC994.bed >METexonsCoverdbyACC994.csv
